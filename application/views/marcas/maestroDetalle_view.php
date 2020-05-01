@@ -16,7 +16,7 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <form action="<?php echo site_url('marcas/insertar');?>" method="get">
+                  <form enctype="multipart/form-data" action="<?php echo site_url('marcas/insertar');?>" method="POST">
                   <div class="modal-body">
                     
                       <div class="form-group">
@@ -31,6 +31,10 @@
                         <label for="mpropietario" class="col-form-label">Propietario:</label>
                         <input type="text" class="form-control" id="mpropietario" name = "propietario">
                       </div>
+                      <div class="form-group">
+                        <label for="mimagen" class="col-form-label">Insertar imagen:</label>
+                        <input type="file" required class="form-control" name="imagen">
+                      </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -41,8 +45,7 @@
             </div>
 
 
-            
-
+            <!--Tabla maestra-->
             <div class="box-body">
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="example1_length"><label>Mostrar <select name="example1_length" aria-controls="example1" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entradas</label></div></div><div class="col-sm-6"><div id="example1_filter" class="dataTables_filter"><label>Buscar: <input type="search" class="form-control input-sm" placeholder="" aria-controls="example1"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                 <thead>
@@ -58,9 +61,8 @@
                             <td><?php echo $fila->nombreMarca; ?></td>
                             <td><?php echo $fila->fechaFundacion; ?></td>
                             <td><?php echo $fila->propietario; ?></td>
-                            <td><?php echo $fila->enlaceFoto; ?></td>
+                            <td><img src="content/img/<?php echo $fila->enlaceFoto; ?>" alt="imagen" class="img-thumbnail"></td>
                             <td><a class="btn btn-info" href="<?=site_url('marcas/detalle/'.$fila->id)?>">Ver Detalle</a></td>
-                            <td><a class="btn btn-danger" href='elimina_factura.php?id=$line[0]'>Eliminar</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

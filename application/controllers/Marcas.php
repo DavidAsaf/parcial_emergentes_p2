@@ -43,10 +43,13 @@ class Marcas extends CI_Controller{
 
     public function insertar()
     {
-        $marca = $this->input->get('marca');
-        $fecha = $this->input->get('fecha');
-        $propietario = $this->input->get('propietario');
-        $resultado = $this->marcas_model->insertarMarcas($marca, $fecha, $propietario);
+        $marca = $this->input->post('marca');
+        $fecha = $this->input->post('fecha');
+        $propietario = $this->input->post('propietario');
+        $imagen = $_FILES["imagen"]["name"];
+        $temporal = $_FILES["imagen"]["tmp_name"];
+        move_uploaded_file($temporal, "content/img/".$imagen);
+        $resultado = $this->marcas_model->insertarMarcas($marca, $fecha, $propietario, $imagen);
         if($resultado=1){
             redirect('/marcas', 'refresh');
         }

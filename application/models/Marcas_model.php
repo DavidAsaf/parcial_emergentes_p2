@@ -12,12 +12,13 @@ class Marcas_model extends CI_Model{
         return $consulta->result();
     }
 
-    public function insertarMarcas($marca, $fecha, $propietario)
+    public function insertarMarcas($marca, $fecha, $propietario, $imagen)
     {
         $data = array(
             'nombreMarca' => $marca,
             'fechaFundacion' => $fecha,
-            'propietario' => $propietario
+            'propietario' => $propietario,
+            'enlaceFoto' => $imagen
         );
         $this->db->insert('marcas', $data);
         $num = $this->db->affected_rows();
