@@ -6,7 +6,7 @@
               </div>
             </div>
             
-            
+            <!--El modal para insertar nueva marca--> 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -16,26 +16,26 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
+                  <form action="<?php echo site_url('marcas/insertar');?>" method="get">
                   <div class="modal-body">
-                    <form>
+                    
                       <div class="form-group">
                         <label for="mmarca" class="col-form-label">Marca:</label>
-                        <input type="text" class="form-control" id="mmarca">
+                        <input type="text" class="form-control" id="mmarca" name = "marca">
                       </div>
                       <div class="form-group">
                         <label for="mfechafundacion" class="col-form-label">Fecha Fundación:</label>
-                        <input type="text" class="form-control" id="mfechafundacion">
+                        <input type="text" class="form-control" id="mfechafundacion" name = "fecha">
                       </div>
                       <div class="form-group">
                         <label for="mpropietario" class="col-form-label">Propietario:</label>
-                        <input type="text" class="form-control" id="mpropietario">
+                        <input type="text" class="form-control" id="mpropietario" name = "propietario">
                       </div>
-                    </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success">Crear</button>
-                  </div>
+                    <button type="submit" class="btn btn-success">Crear</button>
+                  </div></form>
                 </div>
               </div>
             </div>
@@ -59,8 +59,8 @@
                             <td><?php echo $fila->fechaFundacion; ?></td>
                             <td><?php echo $fila->propietario; ?></td>
                             <td><?php echo $fila->enlaceFoto; ?></td>
-                            <td><a href='elimina_factura.php?id=$line[0]'>Ver Detalle</a></td>
-                            <td><a href='elimina_factura.php?id=$line[0]'>Eliminar</a></td>
+                            <td><a class="btn btn-info" href="<?=site_url('marcas/detalle/'.$fila->id)?>">Ver Detalle</a></td>
+                            <td><a class="btn btn-danger" href='elimina_factura.php?id=$line[0]'>Eliminar</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -86,8 +86,10 @@
                 <thead>
                 <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 157px;">Codigo</th>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 194.333px;">Marca</th>
-                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 171px;">Fecha Fundacion</th>
-                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 133.667px;">Propietario</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 194.333px;">Estilo</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 133.667px;">Fecha creación</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 133.667px;">Fecha Lanzamiento</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 133.667px;">Diseñador</th>
                 </thead>
                 <tbody>
                     <?php foreach ($det as $fil): ?>
@@ -98,7 +100,6 @@
                             <td><?php echo $fil->fechaCreacion; ?></td>
                             <td><?php echo $fil->fechaLanzamiento; ?></td>
                             <td><?php echo $fil->disenador; ?></td>
-                            <td><a href='elimina_factura.php?id=$line[0]'>Ver Detalle</a></td>
                             <td><a href='elimina_factura.php?id=$line[0]'>Eliminar</a></td>
                         </tr>
                     <?php endforeach; ?>

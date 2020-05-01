@@ -13,16 +13,10 @@ class Marcas extends CI_Controller{
     }
 
     public function index(){
-        
-        $consulta = $this->marcas_model->listaMarcas();
-        $data = array(
-            //'lista' => $consulta -- este se uso anteriormente
-            'header'=>'section/header',
-            'sidebar'=>'section/sidebar',
-            'content'=> 'marcas/marcas_view',
-            'recs' => $this->recs
-        );
-        $this->load->view('master/master', $data);
+        $con = $this->marcas_model->detalle(0);
+        //$this->recs        = $id_item;
+        //$consulta = $this->marcas_model->listaMarcas();
+        $this->maestroDetalle($con);
 
     }
 
@@ -39,8 +33,8 @@ class Marcas extends CI_Controller{
         $this->load->view('master/master', $data);
     }
 
-    public function detalle(){
-        $con = $this->marcas_model->detalle(1);
+    public function detalle($valor){
+        $con = $this->marcas_model->detalle($valor);
         //$this->recs        = $id_item;
         //$consulta = $this->marcas_model->listaMarcas();
         $this->maestroDetalle($con);
@@ -54,7 +48,7 @@ class Marcas extends CI_Controller{
         $propietario = $this->input->get('propietario');
         $resultado = $this->marcas_model->insertarMarcas($marca, $fecha, $propietario);
         if($resultado=1){
-            redirect('/marcas/maestroDetalle', 'refresh');
+            redirect('/marcas', 'refresh');
         }
     }
 
