@@ -40,15 +40,38 @@ class Marcas extends CI_Controller {
         $marca = $this->input->post('marca');
         $fecha = $this->input->post('fecha');
         $propietario = $this->input->post('propietario');
-        $imagen = $_FILES["imagen"]["name"];
-        $temporal = $_FILES["imagen"]["tmp_name"];
-        move_uploaded_file($temporal, "content/img/" . $imagen);
-        $resultado = $this->marcas_model->insertarMarcas($marca, $fecha, $propietario, $imagen);
-        if ($resultado = 1) {
-            redirect('/marcas', 'refresh');
+        $archivo = file('content/filter/black_list.txt');
+        $encontrado = 0;
+
+        foreach ($archivo as $linea) {
+
+            if (strpos($marca, ' ' . trim($linea) . ' ') !== false) {
+                $encontrado = 1;
+                break;
+            } elseif (strpos($fecha, ' ' . trim($linea) . ' ') !== false) {
+                $encontrado = 1;
+                break;
+            } elseif (strpos($propietario, ' ' . trim($linea) . ' ') !== false) {
+                $encontrado = 1;
+                break;
+            }
         }
+
+        if ($encontrado == 1){
+            echo '<script language="javascript">alert("Hey! No te pases de listo.");</script>';
+            redirect('/marcas', 'refresh');
+        } else {
+            $imagen = $_FILES["imagen"]["name"];
+            $temporal = $_FILES["imagen"]["tmp_name"];
+            move_uploaded_file($temporal, "content/img/" . $imagen);
+            $resultado = $this->marcas_model->insertarMarcas($marca, $fecha, $propietario, $imagen);
+            if ($resultado = 1) {
+                redirect('/marcas', 'refresh');
+            }
+        }
+        fclose($archivo);
     }
-    
+
     public function insertardetalle() {
         $marca = $this->input->post('cbmarcas');
         $estilo = $this->input->post('estilo');
@@ -62,12 +85,14 @@ class Marcas extends CI_Controller {
     }
 
     public function eliminarmarca($id_marca) {
-        $resultado = $this->marcas_model->eliminarmarca($id_marca);
-
+        $resultado = $this->marcas_model->eliminarMarca($id_marca);
         redirect('/marcas', 'refresh');
     }
 
-    
+    public function eliminarEstilo($id_estilo) {
+        $resultado = $this->marcas_model->eliminarEstilo($id_estilo);
+        redirect('/marcas', 'refresh');
+    }
 
 }
 

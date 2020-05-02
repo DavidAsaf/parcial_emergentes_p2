@@ -24,7 +24,7 @@ class Marcas_model extends CI_Model {
         $num = $this->db->affected_rows();
         return $num;
     }
-    
+
     public function insertaEstilos($marca, $estilo, $fechacreacion, $fechalanzamiento, $disenador) {
         $data = array(
             'idMarca' => $marca,
@@ -49,7 +49,7 @@ class Marcas_model extends CI_Model {
         return $this->db->get('marcas')->result();
     }
 
-    function eliminarmarca($id_marca) {
+    function eliminarMarca($id_marca) {
         $num = 0;
         try {
             $this->db->where('marcas.id', $id_marca);
@@ -61,8 +61,19 @@ class Marcas_model extends CI_Model {
 
         return $num;
     }
-    
-    
+
+    function eliminarEstilo($id_estilo) {
+        $num = 0;
+        try {
+            $this->db->where('estilos.idEstilo', $id_estilo);
+            $this->db->delete('estilos');
+            $num = $this->db->affected_rows();
+        } catch (Exception $ex) {
+            
+        }
+
+        return $num;
+    }
 
 }
 

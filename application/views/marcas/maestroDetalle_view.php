@@ -21,15 +21,15 @@
 
                         <div class="form-group">
                             <label for="mmarca" class="col-form-label">Marca:</label>
-                            <input type="text" class="form-control" id="mmarca" name = "marca">
+                            <input type="text" required class="form-control" id="mmarca" name = "marca">
                         </div>
                         <div class="form-group">
                             <label for="mfechafundacion" class="col-form-label">Fecha Fundación:</label>
-                            <input type="date" class="form-control" id="mfechafundacion" name = "fecha">
+                            <input type="date" required  class="form-control" id="mfechafundacion" name = "fecha">
                         </div>
                         <div class="form-group">
                             <label for="mpropietario" class="col-form-label">Propietario:</label>
-                            <input type="text" class="form-control" id="mpropietario" name = "propietario">
+                            <input type="text" required class="form-control" id="mpropietario" name = "propietario">
                         </div>
                         <div class="form-group">
                             <label for="mimagen" class="col-form-label">Insertar imagen:</label>
@@ -146,13 +146,9 @@
                         <div class="form-group">
                             <label for="mseleccionarmarca" class="col-form-label">Marca:</label>
                             <select id="cbmarcas" class="form-control" name="cbmarcas">
-
                                 <?php foreach ($consulta as $row): ?>
                                     <option value="<?php echo $row->id; ?>"><?php echo $row->nombreMarca; ?></option>
-                                    
                                 <?php endforeach; ?>
-
-                                
                             </select>
 
                         </div>
@@ -205,7 +201,8 @@
                                     <td><?php echo $fil->fechaCreacion; ?></td>
                                     <td><?php echo $fil->fechaLanzamiento; ?></td>
                                     <td><?php echo $fil->disenador; ?></td>
-                                    <td><a href='elimina_factura.php?id=$line[0]'>Eliminar</a></td>
+                                    <td><a class="btn btn-warning" data-toggle="modal" data-target="#editandoestilo" data-whatever="@mdo">Editar</a></td>
+                                    <td><a class="btn btn-danger" href="<?= site_url('marcas/eliminarestilo/' . $fil->idEstilo) ?>">Eliminar</a></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
