@@ -14,18 +14,8 @@
           <ul class="sidebar-menu">
             <li class="header">Navegación</li>
             <li class="active">
-              <a href="<?php echo base_url('/marcas/maestroDetalle') ?>">
+              <a href="<?php echo base_url('/marcas') ?>">
                 <i class="fa fa-table"></i> <span>Maestro Detalle</span> 
-              </a>
-            </li>
-            <li class="active">
-              <a href="<?php echo base_url('/marcas/') ?>">
-                <i class="fa fa-plus-square"></i> <span>Insertar Marca</span> 
-              </a>
-            </li>
-            <li class="active">
-              <a href="<?php echo base_url('/marcas/') ?>">
-                <i class="fa fa-plus-square"></i> <span>Insertar Estilo</span> 
               </a>
             </li>
             

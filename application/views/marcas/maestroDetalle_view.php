@@ -2,7 +2,7 @@
             <div class="box-header">
               <h3 class="box-title">Listado de Marcas</h3>
               <div align="right">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Nueva Marca</button>  
+                <button type="button" class="btn btn-success fa fa-plus-square" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"> Nueva Marca</button>  
               </div>
             </div>
             
@@ -25,7 +25,7 @@
                       </div>
                       <div class="form-group">
                         <label for="mfechafundacion" class="col-form-label">Fecha Fundación:</label>
-                        <input type="text" class="form-control" id="mfechafundacion" name = "fecha">
+                        <input type="date" class="form-control" id="mfechafundacion" name = "fecha">
                       </div>
                       <div class="form-group">
                         <label for="mpropietario" class="col-form-label">Propietario:</label>
@@ -61,7 +61,7 @@
                             <td><?php echo $fila->nombreMarca; ?></td>
                             <td><?php echo $fila->fechaFundacion; ?></td>
                             <td><?php echo $fila->propietario; ?></td>
-                            <td><img src="content/img/<?php echo $fila->enlaceFoto; ?>" alt="imagen" class="img-thumbnail"></td>
+                            <td><img src="<?php echo base_url("content/img/".$fila->enlaceFoto)?>" class="img-thumbnail" width="100" height="100"></td>
                             <td><a class="btn btn-info" href="<?=site_url('marcas/detalle/'.$fila->id)?>">Ver Detalle</a></td>
                         </tr>
                     <?php endforeach; ?>
@@ -81,7 +81,57 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Listado de Estilos</h3>
+              <div align="right"> 
+                <button type="button" class="btn btn-success fa fa-plus-square" data-toggle="modal" data-target="#crearestilo" data-whatever="@mdo"> Nuevo Estilo</button>  
+              </div>
             </div>
+
+            <!--El modal para insertar nuevo estilo--> 
+            <div class="modal fade" id="crearestilo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Insertar nuevo estilo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form enctype="multipart/form-data" action="<?php echo site_url('marcas/insertar');?>" method="POST">
+                  <div class="modal-body">
+                    
+                      <div class="form-group">
+                        <label for="mseleccionarmarca" class="col-form-label">Seleccionar Marca:</label>
+                        <select id="cmbmarca"></select>
+                      </div>
+                      <div class="form-group">
+                        <label for="mestilo" class="col-form-label">Estilo:</label>
+                        <input type="text" class="form-control" id="mestilo" name = "estilo">
+                      </div>
+                      <div class="form-group">
+                        <label for="mfechacreacion" class="col-form-label">Fecha Creación:</label>
+                        <input type="date" class="form-control" id="mfechacreacion" name = "fechacreacion">
+                      </div>
+                      <div class="form-group">
+                        <label for="mfechalanzamiento" class="col-form-label">Fecha de Lanzamiento:</label>
+                        <input type="date" class="form-control" id="mfechalanzamiento" name = "fechalanzamiento">
+                      </div>
+                      <div class="form-group">
+                        <label for="mdisenador" class="col-form-label">Diseñador:</label>
+                        <input type="text" class="form-control" id="mdisenador" name = "disenador">
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Crear Estilo</button>
+                  </div></form>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
             <!-- /.box-header -->
             <div class="box-body">
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="example1_length"><label>Mostrar <select name="example1_length" aria-controls="example1" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entradas</label></div></div><div class="col-sm-6"><div id="example1_filter" class="dataTables_filter"><label>Buscar: <input type="search" class="form-control input-sm" placeholder="" aria-controls="example1"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
