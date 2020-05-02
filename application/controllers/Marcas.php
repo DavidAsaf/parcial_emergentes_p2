@@ -57,7 +57,7 @@ class Marcas extends CI_Controller {
             }
         }
 
-        if ($encontrado == 1){
+        if ($encontrado == 1) {
             echo '<script language="javascript">alert("Hey! No te pases de listo.");</script>';
             redirect('/marcas', 'refresh');
         } else {
@@ -83,8 +83,8 @@ class Marcas extends CI_Controller {
             redirect('/marcas', 'refresh');
         }
     }
-    
-    public function editarmarca() { 
+
+    public function editarmarca() {
         $idMarca = $this->input->post('eidmarca');
         $marca = $this->input->post('emarca');
         $fecha = $this->input->post('efecha');
@@ -106,21 +106,20 @@ class Marcas extends CI_Controller {
             }
         }
 
-        if ($encontrado == 1){
+        if ($encontrado == 1) {
             echo '<script language="javascript">alert("Hey! No te pases de listo.");</script>';
             redirect('/marcas', 'refresh');
         } else {
             $imagen = $_FILES["eimagen"]["name"];
             $temporal = $_FILES["eimagen"]["tmp_name"];
             move_uploaded_file($temporal, "content/img/" . $imagen);
-            $resultado = $this->marcas_model->editandoMarcas($idMarca,$marca, $fecha, $propietario, $imagen);
+            $resultado = $this->marcas_model->editandoMarcas($idMarca, $marca, $fecha, $propietario, $imagen);
             if ($resultado = 1) {
                 redirect('/marcas', 'refresh');
             }
         }
         fclose($archivo);
     }
-    
 
     public function eliminarmarca($id_marca) {
         $retorno = $this->marcas_model->comprobacion($id_marca);
@@ -128,10 +127,13 @@ class Marcas extends CI_Controller {
             echo '<script language="javascript">alert("No se puede eliminar, porque en un registro maestro que posee detalles.");</script>';
             redirect('/marcas', 'refresh');
         } else {
-            $this->marcas_model->eliminarMarca($id_marca);
-            redirect('/marcas', 'refresh');
+            try {
+                $this->marcas_model->eliminarMarca($id_marca);
+                redirect('/marcas', 'refresh');
+            } catch (PDOException $e) {
+                echo '<script language="javascript">alert("No se puede eliminar, porque en un registro maestro que posee detalles.");</script>';
+            }
         }
-        
     }
 
     public function eliminarEstilo($id_estilo) {

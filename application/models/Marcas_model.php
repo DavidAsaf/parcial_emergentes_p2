@@ -46,7 +46,7 @@ class Marcas_model extends CI_Model {
         $this->db->where('estilos.idMarca', $id_item);
         $consulta = $this->db->get();
         $resultado = $consulta->result();
-        
+
         return $resultado;
     }
 
@@ -78,15 +78,13 @@ class Marcas_model extends CI_Model {
     }
 
     function comprobacion($idMarca) {
-        $this->db->select('COUNT(*) as cuenta');
-        $this->db->from('marcas');
-        $consulta = $this->db->get();
+        $consulta = $this->db->query("SELECT COUNT(*) AS cuenta FROM estilos WHERE idMarca = ".$idMarca);
         $resultado = $consulta->result();
-        
+
         foreach ($resultado as $fila):
-            $valor->$fila->cuenta;
+            $valor = $fila->cuenta;
         endforeach;
-        
+
         return $valor;
     }
 
