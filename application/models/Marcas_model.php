@@ -39,14 +39,55 @@ class Marcas_model extends CI_Model {
     }
 
     function detalle($id_item) {
+        $this->db->select('idEstilo,nombreMarca,nombreEstilo,fechaCreacion,fechaLanzamiento,disenador');
+        $this->db->from('estilos');
+        $this->db->join('marcas', 'marcas.id = estilos.idMarca');
         $this->db->order_by($this->id, $this->order);
         $this->db->where('estilos.idMarca', $id_item);
-        return $this->db->get('estilos')->result();
+        $consulta = $this->db->get();
+        $resultado = $consulta->result();
+        
+        return $resultado;
     }
 
     function editarmarca($id_marca) {
         $this->db->where('marcas.id', $id_marca);
         return $this->db->get('marcas')->result();
+    }
+
+    public function editandoMarcas($idMarca, $marca, $fecha, $propietario, $imagen) {
+        if (empty($imagen)) {
+            $data = array(
+                'nombreMarca' => $marca,
+                'fechaFundacion' => $fecha,
+                'propietario' => $propietario
+            );
+        } else {
+            $data = array(
+                'nombreMarca' => $marca,
+                'fechaFundacion' => $fecha,
+                'propietario' => $propietario,
+                'enlaceFoto' => $imagen
+            );
+        }
+
+        $this->db->where('marcas.id', $idMarca);
+        $this->db->update('marcas', $data);
+        $num = $this->db->affected_rows();
+        return $num;
+    }
+
+    function comprobacion($idMarca) {
+        $this->db->select('COUNT(*) as cuenta');
+        $this->db->from('marcas');
+        $consulta = $this->db->get();
+        $resultado = $consulta->result();
+        
+        foreach ($resultado as $fila):
+            $valor->$fila->cuenta;
+        endforeach;
+        
+        return $valor;
     }
 
     function eliminarMarca($id_marca) {

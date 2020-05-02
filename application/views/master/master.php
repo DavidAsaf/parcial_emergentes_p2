@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Marcas</title>
+        <title>Parcial Emergentes P2</title>
         <link rel="stylesheet" href="<?php echo base_url('content/css/_all-skins.css') ?>">
 
         <link rel="stylesheet" href="<?php echo base_url('content/css/bootstrap.css.map') ?>">
@@ -15,10 +15,8 @@
         <script src="<?php echo base_url('content/js/app.min.js') ?>"></script>
         <script src="<?php echo base_url('content/js/bootstrap.min.js') ?>"></script>
         <script src="<?php echo base_url('content/js/fastclick.min.js') ?>"></script>
-        
-        <?php if($this->uri->segment(2)=='detalle') {?>
-        <script src="<?= base_url(); ?>js/marcas.js"></script>
-        <?php }?>
+        <script src="<?= base_url(); ?>js/funciones.js"></script>
+       
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">

@@ -54,28 +54,27 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form enctype="multipart/form-data" action="<?php echo site_url('marcas/insertar'); ?>" method="POST">
+                <form enctype="multipart/form-data" action="<?php echo site_url('marcas/editarmarca'); ?>" method="POST">
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="midmarca" class="col-form-label">ID:</label>
-                            <input type="text" class="form-control" id="midmarca" name = "idmarca" readonly="yes">
+                            <input type="text" hidden="" id="midmarca" name = "eidmarca" >
                         </div>
                         <div class="form-group">
                             <label for="mmarca" class="col-form-label">Marca:</label>
-                            <input type="text" class="form-control" id="memarca" name = "marca">
+                            <input type="text" required class="form-control" id="memarca" name = "emarca">
                         </div>
                         <div class="form-group">
                             <label for="mfechafundacion" class="col-form-label">Fecha Fundación:</label>
-                            <input type="date" class="form-control" id="mefechafundacion" name = "fecha">
+                            <input type="date" required class="form-control" id="mefechafundacion" name = "efecha">
                         </div>
                         <div class="form-group">
                             <label for="mpropietario" class="col-form-label">Propietario:</label>
-                            <input type="text" class="form-control" id="mepropietario" name = "propietario">
+                            <input type="text" required class="form-control" id="mepropietario" name = "epropietario">
                         </div>
                         <div class="form-group">
-                            <label for="mimagen" class="col-form-label">Insertar imagen:</label>
-                            <input type="file" required class="form-control" name="imagen">
+                            <label for="mimagen" required class="col-form-label">Insertar imagen:</label>
+                            <input type="file" class="form-control" id="mimagen" name="eimagen">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -103,9 +102,10 @@
                                     <td><?php echo $fila->nombreMarca; ?></td>
                                     <td><?php echo $fila->fechaFundacion; ?></td>
                                     <td><?php echo $fila->propietario; ?></td>
+                                    <?php $datos=$fila->id."||".$fila->nombreMarca."||".$fila->fechaFundacion."||".$fila->propietario."||".$fila->enlaceFoto; ?>
                                     <td><img src="<?php echo base_url("content/img/" . $fila->enlaceFoto) ?>" class="img-thumbnail" width="100" height="100"></td>
                                     <td><a class="btn btn-info" href="<?= site_url('marcas/detalle/' . $fila->id) ?>">Detalle</a></td>
-                                    <td><a class="btn btn-warning" data-toggle="modal" data-target="#editandomarca" data-whatever="@mdo">Editar</a></td>
+                                    <td><a class="btn btn-warning" data-toggle="modal" data-target="#editandomarca" data-whatever="@mdo" onclick="agregarform('<?php echo $datos ?>')">Editar</a></td>
                                     <td><a class="btn btn-danger" href="<?= site_url('marcas/eliminarmarca/' . $fila->id) ?>">Eliminar</a></td>
                                 </tr>
                             <?php endforeach; ?>
@@ -196,7 +196,7 @@
                             <?php foreach ($det as $fil): ?>
                                 <tr role="row" class="odd">
                                     <td><?php echo $fil->idEstilo; ?></td>
-                                    <td><?php echo $fil->idMarca; ?></td>
+                                    <td><?php echo $fil->nombreMarca; ?></td>
                                     <td><?php echo $fil->nombreEstilo; ?></td>
                                     <td><?php echo $fil->fechaCreacion; ?></td>
                                     <td><?php echo $fil->fechaLanzamiento; ?></td>
