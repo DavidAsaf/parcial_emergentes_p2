@@ -78,9 +78,60 @@ class Marcas extends CI_Controller {
         $fechacreacion = $this->input->post('fechacreacion');
         $fechalanzamiento = $this->input->post('fechalanzamiento');
         $disenador = $this->input->post('disenador');
-        $resultado = $this->marcas_model->insertaEstilos($marca, $estilo, $fechacreacion, $fechalanzamiento, $disenador);
-        if ($resultado = 1) {
+        $archivo = file('content/filter/black_list.txt');
+        $encontrado = 0;
+
+        foreach ($archivo as $linea) {
+
+            if (strpos($estilo, ' ' . trim($linea) . ' ') !== false) {
+                $encontrado = 1;
+                break;
+            } elseif (strpos($disenador, ' ' . trim($linea) . ' ') !== false) {
+                $encontrado = 1;
+                break;
+            }
+        }
+
+        if ($encontrado == 1) {
+            echo '<script language="javascript">alert("Hey! No te pases de listo.");</script>';
             redirect('/marcas', 'refresh');
+        } else {
+            $resultado = $this->marcas_model->insertaEstilos($marca, $estilo, $fechacreacion, $fechalanzamiento, $disenador);
+            if ($resultado = 1) {
+                redirect('/marcas', 'refresh');
+            }
+        }
+    }
+    
+    public function editandoDetalle() {
+        $idEstilo = $this->input->post('eidestilo');
+        $marca = $this->input->post('ecbmarcas');
+        $estilo = $this->input->post('eestilo');
+        $fechacreacion = $this->input->post('efechacreacion');
+        $fechalanzamiento = $this->input->post('efechalanzamiento');
+        $disenador = $this->input->post('edisenador');
+        $archivo = file('content/filter/black_list.txt');
+        $encontrado = 0;
+
+        foreach ($archivo as $linea) {
+
+            if (strpos($estilo, ' ' . trim($linea) . ' ') !== false) {
+                $encontrado = 1;
+                break;
+            } elseif (strpos($disenador, ' ' . trim($linea) . ' ') !== false) {
+                $encontrado = 1;
+                break;
+            }
+        }
+
+        if ($encontrado == 1) {
+            echo '<script language="javascript">alert("Hey! No te pases de listo.");</script>';
+            redirect('/marcas', 'refresh');
+        } else {
+            $resultado = $this->marcas_model->editaEstilos($idEstilo,$marca, $estilo, $fechacreacion, $fechalanzamiento, $disenador);
+            if ($resultado = 1) {
+                redirect('/marcas', 'refresh');
+            }
         }
     }
 

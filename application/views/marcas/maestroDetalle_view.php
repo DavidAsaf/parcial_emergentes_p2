@@ -154,19 +154,19 @@
                         </div>
                         <div class="form-group">
                             <label for="mestilo" class="col-form-label">Estilo:</label>
-                            <input type="text" class="form-control" id="mestilo" name = "estilo">
+                            <input type="text" required class="form-control" id="mestilo" name = "estilo">
                         </div>
                         <div class="form-group">
                             <label for="mfechacreacion" class="col-form-label">Fecha Creacion:</label>
-                            <input type="date" class="form-control" id="mfechacreacion" name = "fechacreacion">
+                            <input type="date" required class="form-control" id="mfechacreacion" name = "fechacreacion">
                         </div>
                         <div class="form-group">
                             <label for="mfechalanzamiento" class="col-form-label">Fecha de Lanzamiento:</label>
-                            <input type="date" class="form-control" id="mfechalanzamiento" name = "fechalanzamiento">
+                            <input type="date" required class="form-control" id="mfechalanzamiento" name = "fechalanzamiento">
                         </div>
                         <div class="form-group">
                             <label for="mdisenador" class="col-form-label">Diseñador:</label>
-                            <input type="text" class="form-control" id="mdisenador" name = "disenador">
+                            <input type="text" required class="form-control" id="mdisenador" name = "disenador">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -179,9 +179,60 @@
 
 
 
+    
+    
+    <!--El modal para editar estilo--> 
+    <div class="modal fade" id="editandoestilo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editando estilo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?php echo site_url('marcas/editandoDetalle'); ?>" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" hidden="" id="eidestilo" name = "eidestilo" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mseleccionarmarca" class="col-form-label">Marca:</label>
+                            <select id="ecbmarcas" class="form-control" name="ecbmarcas">
+                                <?php foreach ($consulta as $row): ?>
+                                    <option value="<?php echo $row->id; ?>"><?php echo $row->nombreMarca; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="mestilo" class="col-form-label">Estilo:</label>
+                            <input type="text" required class="form-control" id="eestilo" name = "eestilo">
+                        </div>
+                        <div class="form-group">
+                            <label for="mfechacreacion" class="col-form-label">Fecha Creacion:</label>
+                            <input type="date" required class="form-control" id="efechacreacion" name = "efechacreacion">
+                        </div>
+                        <div class="form-group">
+                            <label for="mfechalanzamiento" class="col-form-label">Fecha de Lanzamiento:</label>
+                            <input type="date" required class="form-control" id="efechalanzamiento" name = "efechalanzamiento">
+                        </div>
+                        <div class="form-group">
+                            <label for="mdisenador" class="col-form-label">Diseñador:</label>
+                            <input type="text" required class="form-control" id="edisenador" name = "edisenador">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar Estilo</button>
+                    </div></form>
+            </div>
+        </div>
+    </div>
 
 
-    <!-- /.box-header -->
+    <!-- tabla detalle -->
     <div class="box-body">
         <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="example1_length"><label>Mostrar <select name="example1_length" aria-controls="example1" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entradas</label></div></div><div class="col-sm-6"><div id="example1_filter" class="dataTables_filter"><label>Buscar: <input type="search" class="form-control input-sm" placeholder="" aria-controls="example1"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                         <thead>
@@ -201,7 +252,8 @@
                                     <td><?php echo $fil->fechaCreacion; ?></td>
                                     <td><?php echo $fil->fechaLanzamiento; ?></td>
                                     <td><?php echo $fil->disenador; ?></td>
-                                    <td><a class="btn btn-warning" data-toggle="modal" data-target="#editandoestilo" data-whatever="@mdo">Editar</a></td>
+                                    <?php $datose=$fil->idEstilo."||".$fil->nombreMarca."||".$fil->nombreEstilo."||".$fil->fechaCreacion."||".$fil->fechaLanzamiento."||".$fil->disenador; ?>
+                                    <td><a class="btn btn-warning" data-toggle="modal" data-target="#editandoestilo" data-whatever="@mdo" onclick="eform('<?php echo $datose ?>')">Editar</a></td>
                                     <td><a class="btn btn-danger" href="<?= site_url('marcas/eliminarestilo/' . $fil->idEstilo) ?>">Eliminar</a></td>
                                 </tr>
                             <?php endforeach; ?>

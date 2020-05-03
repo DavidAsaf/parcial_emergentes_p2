@@ -77,8 +77,25 @@ class Marcas_model extends CI_Model {
         return $num;
     }
 
+    public function editaEstilos($idEstilo, $marca, $estilo, $fechacreacion, $fechalanzamiento, $disenador) {
+
+        $data = array(
+            'idMarca' => $marca,
+            'nombreEstilo' => $estilo,
+            'fechaCreacion' => $fechacreacion,
+            'fechaLanzamiento' => $fechalanzamiento,
+            'disenador' => $disenador
+        );
+
+
+        $this->db->where('estilos.idEstilo', $idEstilo);
+        $this->db->update('estilos', $data);
+        $num = $this->db->affected_rows();
+        return $num;
+    }
+
     function comprobacion($idMarca) {
-        $consulta = $this->db->query("SELECT COUNT(*) AS cuenta FROM estilos WHERE idMarca = ".$idMarca);
+        $consulta = $this->db->query("SELECT COUNT(*) AS cuenta FROM estilos WHERE idMarca = " . $idMarca);
         $resultado = $consulta->result();
 
         foreach ($resultado as $fila):
