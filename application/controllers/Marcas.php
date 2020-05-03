@@ -174,17 +174,14 @@ class Marcas extends CI_Controller {
 
     public function eliminarmarca($id_marca) {
         $retorno = $this->marcas_model->comprobacion($id_marca);
-        if ($retorno < 1) {
-            echo '<script language="javascript">alert("No se puede eliminar, porque en un registro maestro que posee detalles.");</script>';
-            redirect('/marcas', 'refresh');
-        } else {
+        
             try {
                 $this->marcas_model->eliminarMarca($id_marca);
                 redirect('/marcas', 'refresh');
             } catch (PDOException $e) {
                 echo '<script language="javascript">alert("No se puede eliminar, porque en un registro maestro que posee detalles.");</script>';
             }
-        }
+        
     }
 
     public function eliminarEstilo($id_estilo) {
